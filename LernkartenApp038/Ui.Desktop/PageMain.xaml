@@ -1,0 +1,16 @@
+﻿<Page x:Class="De.HsFlensburg.LernkartenApp038.Ui.Desktop.PageMain"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:De.HsFlensburg.LernkartenApp038.Ui.Desktop"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="PageMain">
+
+    <Grid>
+        <ListBox HorizontalAlignment="Left" Height="280" Margin="55,55,0,0" VerticalAlignment="Top" Width="415"/>
+        <Button Content="Create New Set" HorizontalAlignment="Left" Margin="55,355,0,0" VerticalAlignment="Top" Width="110" Height="35"/>
+
+    </Grid>
+</Page>

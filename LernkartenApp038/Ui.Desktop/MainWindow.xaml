@@ -1,0 +1,97 @@
+﻿<Window x:Class="Ui.Desktop.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:viewModel="clr-namespace:De.HsFlensburg.LernkartenApp038.Logic.Ui.ViewModels;assembly=Logic.Ui"
+        xmlns:wrapper="clr-namespace:De.HsFlensburg.LernkartenApp038.Logic.Ui.Wrapper;assembly=Logic.Ui"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="1000" WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <!--Objekt für Binding erzeugen-->
+    <Window.DataContext>
+        <Binding Path="MainWindowVM" Source="{StaticResource ViewModelLocator}" />
+    </Window.DataContext>
+    <Window.IsEnabled>
+        <Binding Source="{StaticResource MessageListener}" 
+                 Path="BindableProperty"></Binding>
+    </Window.IsEnabled>
+    <Grid >
+        <Grid Height="75" VerticalAlignment="Top" Background="#FF2274BB">
+            <TextBlock VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="28" Foreground="White" Text="LernkartenApp038"/>
+        </Grid>
+        <Grid Width="200" HorizontalAlignment="Left" Background="#FF164772">
+            <StackPanel>
+                <ListView Background="Transparent" BorderThickness="0">
+                    <ListViewItem Height="60" HorizontalAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="White">
+                        <TextBlock Text="Home" Width="180" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="White" FontSize="26" TextAlignment="Center" />
+                    </ListViewItem>
+                    <ListViewItem Height="60" HorizontalAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="White">
+                        <Button  Content="Statistics" Width="180" VerticalAlignment="Center" Foreground="White" FontSize="26" Background="#00A43333" Command="{Binding OpenStatWindowCommand, Mode=OneWay}" />
+                    </ListViewItem>
+
+                    <ListViewItem Height="60" HorizontalAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="White">
+                        <Button Content="Share with Email" Width="180" VerticalAlignment="Center" Foreground="White" FontSize="24" Background="#00A43333" Command="{Binding OpenLoginWindowCommand}" />
+                    </ListViewItem>
+                    <ListViewItem Height="60" HorizontalAlignment="Center" BorderThickness="0,0,0,1" BorderBrush="White">
+                        <Button  Content="Export PDF" Width="180" VerticalAlignment="Center" Foreground="White" FontSize="26" Background="#00A43333" Command="{Binding OpenPDFWindowCommand}"/>
+                    </ListViewItem>
+                </ListView>
+            </StackPanel>
+        </Grid>
+        <Grid Width="793" HorizontalAlignment="Right" VerticalAlignment="Bottom" Height="593">
+            <StackPanel Orientation="Horizontal" Height="300" Margin="20,0,0,100">
+                <ListBox  ItemsSource="{Binding Path=Sets, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedItem, Mode=TwoWay}"  x:Name="List_Sets" HorizontalAlignment="Left" Height="280"  Width="380">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Margin="5"  Orientation="Horizontal" Background="AliceBlue" >
+                                <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Name:"></TextBlock>
+                                <TextBlock Margin="10,0,20,0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Name}"></TextBlock>
+                                <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Category:"></TextBlock>
+                                <TextBlock Margin="10,0,20,0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Category}"></TextBlock>
+                                <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Anzahl Karten:"></TextBlock>
+                                <TextBlock Margin="10,0,20,0" VerticalAlignment="Center" HorizontalAlignment="Right" Text="{Binding Cards.Count}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+                <ListBox  ItemsSource="{Binding ElementName=List_Sets, Path=SelectedItem.Cards, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" SelectedItem="{Binding SelectedCard, Mode=TwoWay}"  x:Name="List_Set" HorizontalAlignment="Right" Margin="20,0,0,0" Height="280" Width="320">
+                    <ListBox.ItemTemplate>
+                        <DataTemplate>
+                            <StackPanel Orientation="Horizontal" Background="AliceBlue" Margin="5">
+                                <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Name:"></TextBlock>
+                                <TextBlock Margin="10,0,20,0" VerticalAlignment="Center" HorizontalAlignment="Left" Text="{Binding Name}"></TextBlock>
+                                <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Question:"></TextBlock>
+                                <TextBlock Margin="10,0,20,0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="{Binding Question}"></TextBlock>
+                                <TextBlock Margin="20,0,0,0" VerticalAlignment="Center" HorizontalAlignment="Center" Text="Answer:"></TextBlock>
+                                <TextBlock Margin="10,0,20,0" VerticalAlignment="Center" HorizontalAlignment="Right" Text="{Binding Answer}"></TextBlock>
+                            </StackPanel>
+                        </DataTemplate>
+                    </ListBox.ItemTemplate>
+                </ListBox>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0,0,0,120">
+                <Button Content="Create Set" Margin="10" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="151" Height="35" FontSize="20" Command="{Binding OpenSetWindowCommand, Mode=OneWay}"/>
+                <Button Content="Create Card"  Margin="10" HorizontalAlignment="Left"  VerticalAlignment="Top" Width="151" Height="35" FontSize="20" Command="{Binding OpenCardWindowCommand, Mode=OneWay}"/>
+                <Button Content="Start Learning"  Margin="10" HorizontalAlignment="Left" VerticalAlignment="Top" Width="151" Height="35" FontSize="20" Command="{Binding OpenLernsessionWindowCommand, Mode=OneWay}"/>
+            </StackPanel>
+            <TextBlock FontSize="30" Text="Choose Your Set!" Foreground="Black" Background="White" HorizontalAlignment="Center" Margin="284,27,284,0" TextWrapping="Wrap" VerticalAlignment="Top"/>
+            <TextBox HorizontalAlignment="Left" Height="24" Margin="25,478,0,0" TextWrapping="Wrap" Text="{Binding NewSetName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
+            <TextBox  HorizontalAlignment="Left" Height="24" Margin="25,530,0,0" TextWrapping="Wrap" Text="{Binding NewSetCategory, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
+            <TextBox HorizontalAlignment="Left" Height="24" Margin="284,478,0,0" TextWrapping="Wrap" Text="{Binding NewCardName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
+            <TextBox  HorizontalAlignment="Left" Height="24" Margin="284,507,0,0" TextWrapping="Wrap" Text="{Binding NewCardQuestion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
+            <TextBox  HorizontalAlignment="Left" Height="24" Margin="284,536,0,0" TextWrapping="Wrap" Text="{Binding NewCardAnswer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  VerticalAlignment="Top" Width="120"/>
+            <Button Content="save" HorizontalAlignment="Left" Margin="639,527,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveSetCommand, Mode=OneWay}"/>
+            <!--<Button Content="console selected" Command="{Binding WriteCommand}" CommandParameter="{Binding ElementName=List_Sets, Path=SelectedItem}"  HorizontalAlignment="Left" Margin="64,427,0,0" VerticalAlignment="Top" Width="75"/>-->
+            <Button Content="Save Set" HorizontalAlignment="Left" Margin="639,527,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveSetCommand, Mode=OneWay}"/>
+            <Button Content="Reset List" HorizontalAlignment="Left" Margin="639,502,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ResetListCommand, Mode=OneWay}"/>
+            <Button Content="Remove Set" HorizontalAlignment="Left" Margin="639,473,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RemoveSetCommand, Mode=OneWay}"/>
+            <Button Content="Save List" HorizontalAlignment="Left" Margin="639,552,0,0" VerticalAlignment="Top" Width="75" Command="{Binding SaveListCommand, Mode=OneWay}"/>
+            <Label Content="Sets" HorizontalAlignment="Left" Margin="124,72,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <Label Content="Set" HorizontalAlignment="Left" Margin="571,72,0,0" VerticalAlignment="Top" FontSize="20"/>
+            <Button Content="Remove Set" HorizontalAlignment="Left" Margin="639,473,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RemoveSetCommand, Mode=OneWay}"/>
+            <Button Content="Remove Card" HorizontalAlignment="Left" Margin="534,492,0,0" VerticalAlignment="Top" Width="75" Command="{Binding RemoveCardCommand, Mode=OneWay}"/>
+            <Button Content="Reset List" HorizontalAlignment="Left" Margin="639,502,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ResetListCommand, Mode=OneWay}"/>
+            <Button Content="Reset Set" HorizontalAlignment="Left" Margin="534,515,0,0" VerticalAlignment="Top" Width="75" Command="{Binding ResetSetCommand, Mode=OneWay}"/>
+        </Grid>
+    </Grid>
+</Window>

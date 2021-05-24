@@ -1,0 +1,13 @@
+﻿<Application x:Class="Ui.Desktop.App"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:local="clr-namespace:De.HsFlensburg.LernkartenApp038.Ui.Desktop"
+               xmlns:viewModel="clr-namespace:De.HsFlensburg.LernkartenApp038.Logic.Ui;assembly=Logic.Ui"
+             StartupUri="MainWindow.xaml">
+    <Application.Resources>
+        <viewModel:ViewModelLocator x:Key="ViewModelLocator">
+        </viewModel:ViewModelLocator>
+        <local:MessageListener x:Key="MessageListener">
+        </local:MessageListener>
+    </Application.Resources>
+</Application>

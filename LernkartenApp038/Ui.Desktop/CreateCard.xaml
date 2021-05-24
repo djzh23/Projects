@@ -1,0 +1,32 @@
+﻿<Window x:Class="De.HsFlensburg.LernkartenApp038.Ui.Desktop.CreateCard"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:De.HsFlensburg.LernkartenApp038.Ui.Desktop"
+        mc:Ignorable="d"
+        Title="CreateCard" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+    <Window.DataContext>
+        <Binding Path="CreateCardWindowVM" Source="{StaticResource ViewModelLocator}" />
+    </Window.DataContext>
+    <Window.IsEnabled>
+        <Binding Source="{StaticResource MessageListener}" 
+                 Path="BindableProperty"></Binding>
+    </Window.IsEnabled>
+    <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="images/backgroundStat.jpg" Stretch="UniformToFill"/>
+        </Grid.Background>
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock Text="Name eingeben" FontSize="24" Foreground="White" HorizontalAlignment="Center"/>
+            <TextBox x:Name="name_input" HorizontalAlignment="Center" TextWrapping="Wrap" Margin="10" Width="600" Height="50" BorderBrush="Black" Text="{Binding NewCardName, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+            <TextBlock Text="Frage eingeben" FontSize="24" Foreground="White" HorizontalAlignment="Center"/>
+            <TextBox x:Name="question_input" HorizontalAlignment="Center"  TextWrapping="Wrap" Margin="10" Width="600" Height="50" BorderBrush="Black" Text="{Binding NewCardQuestion, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            
+            <TextBlock Text="Antwort eingeben" FontSize="24" Foreground="White" HorizontalAlignment="Center"/>
+            <TextBox x:Name="answer_input" HorizontalAlignment="Center"  TextWrapping="Wrap" Margin="10" Width="600" Height="50" BorderBrush="Black" Text="{Binding NewCardAnswer, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Content="Karte erstellen"  Width="100" Padding="10" Margin="10" Command="{Binding CreateCardCommand, Mode=OneWay}"/>
+        </StackPanel>
+    </Grid>
+</Window>
